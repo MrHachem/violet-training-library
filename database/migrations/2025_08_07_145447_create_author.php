@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('name',70)->index();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->unique(['first_name', 'last_name'], 'authors_firstANDlastName_unique');
+            
+            $table->string('personal_picture')->nullable();
+
+            $table->date('birth_date');
+            $table->date('death_date')->nullable();
         });
     }
 

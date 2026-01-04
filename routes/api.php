@@ -21,3 +21,5 @@ Route::get('categories' , [CategoryController::class,  'index']);
 Route::post('categories' , [CategoryController::class,  'store']);
 Route::put('categories/{identifier}' , [CategoryController::class,  'update']);
 Route::delete('categories/{id}' , [CategoryController::class,  'destroy']);
+
+require __DIR__.'/api/author.php';
