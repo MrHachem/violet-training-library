@@ -21,8 +21,19 @@ class UpdateBookRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('book');
+
         return [
-            
+            'ISBN' => ['sometimes', 'string', 'size:13', 'unique:books,ISBN,'.$id],
+
+            'title' => ['sometimes', 'string', 'max:70'],
+
+            'price' => ['sometimes', 'numeric', 'min:0', 'max:99.99'],
+            'mortgage' => ['sometimes', 'numeric', 'min:0', 'max:9999.99'],
+
+            'authorship_date' => ['sometimes', 'nullable', 'date'],
+
+            'category_id' => ['sometimes', 'exists:categories,id'],
         ];
     }
 }
