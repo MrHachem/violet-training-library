@@ -25,9 +25,18 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:50|unique:categories'
+            'name' => 'required|max:50|unique:categories',
+            'image' => ['sometimes', 'nullable', 'image', 'mimes:jpg,jpeg,png', 'max:5120']
         ]);
+
+        $fileService = new FileService();
         $category = new Category();
+
+        if ($request->hasFile('image')) {        
+            $image = $request->file('image');
+            $category->image = $fileService->storePublicImage($image, 'cat', 400);
+        }
+
         $category->name = $request->name;
         $category->save();
         return ResponseHelper::success("تمت إضافة الصنف" , $category);
